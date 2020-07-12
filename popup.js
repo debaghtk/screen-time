@@ -1,8 +1,10 @@
-let showURL = document.getElementById('url');
-let showTime = document.getElementById('time');
+let ul = document.getElementById('dynamic-list');
 
-chrome.storage.sync.get(['url', 'startTime'], function(data) {
-  console.log(data)
-  showURL.innerHTML=data.url.toString()
-  showTime.innerHTML=data.startTime.toString()
+chrome.storage.local.get(['urls'], function(data) {
+	console.log(data)
+	for (let step = 0; step < data.urls.length; step++) {
+		var li = document.createElement("li");
+		li.appendChild(document.createTextNode(data.urls[step].toString()));
+		ul.appendChild(li);
+	}
 });
